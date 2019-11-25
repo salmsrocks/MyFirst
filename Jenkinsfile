@@ -7,14 +7,13 @@ try {
       cleanWs()
       checkout scm
     }
-  }
-  pipeline {
-agent {
-docker {
+    docker {
       image 'hashicorp/terraform:light'
       args '--entrypoint='
     }
-}
+  }
+ 
+
     stage{
 
   // Run terraform init
@@ -82,7 +81,7 @@ docker {
         }
       }
     }
-  }}}
+  }}
   currentBuild.result = 'SUCCESS'
 }
 catch (org.jenkinsci.plugins.workflow.steps.FlowInterruptedException flowError) {
