@@ -7,10 +7,7 @@ try {
       cleanWs()
       checkout scm
     }
-    docker {
-      image 'hashicorp/terraform:light'
-      args '--entrypoint='
-    }
+    
   }
  
 
