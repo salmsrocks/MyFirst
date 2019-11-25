@@ -11,7 +11,7 @@ try {
   }
  
 
-    stage{
+    stages{
 
   // Run terraform init
   stage('init') {
