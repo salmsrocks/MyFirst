@@ -8,6 +8,17 @@ try {
       checkout scm
     }
   }
+// Install terraform 
+  stage('install_deps') {
+steps {
+sh "sudo apt install wget zip python-pip -y"
+sh "cd /tmp"
+sh "curl -o terraform.zip https://releases.hashicorp.com/terraform/'$terraform_version'/terraform_'$terraform_version'_linux_amd64.zip"
+sh "unzip terraform.zip"
+sh "sudo mv terraform /usr/bin"
+sh "rm -rf terraform.zip"
+}
+}
 
   // Run terraform init
   stage('init') {
