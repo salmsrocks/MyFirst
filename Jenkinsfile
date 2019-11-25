@@ -8,18 +8,7 @@ try {
       checkout scm
     }
   }
-// Install terraform 
-  stage('install_deps') {
-node {
-sh "sudo su -"
-sh "apt install wget zip python-pip -y"
-sh "cd /tmp"
-sh "curl -o terraform.zip https://releases.hashicorp.com/terraform/'$terraform_version'/terraform_'$terraform_version'_linux_amd64.zip"
-sh "unzip terraform.zip"
-sh "mv terraform /usr/bin"
-sh "rm -rf terraform.zip"
-}
-}
+
 
   // Run terraform init
   stage('init') {
@@ -31,7 +20,7 @@ sh "rm -rf terraform.zip"
         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
       ]]) {
         ansiColor('xterm') {
-          sh 'terraform init'
+          sh 'terraform init input=false'
         }
       }
     }
