@@ -9,9 +9,18 @@ try {
     }
     
   }
- 
+ stage('Set Terraform path') {
+            steps {
+                script {
+                    def tfHome = tool name: 'Terraform'
+                    env.PATH = "${tfHome}:${env.PATH}"
+                }
+                sh 'terraform --version'
+               
+               
+            }
+        }
 
-    stages{
 
   // Run terraform init
   stage('init') {
@@ -23,7 +32,7 @@ try {
         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
       ]]) {
         ansiColor('xterm') {
-          sh 'terraform init input=false'
+          sh 'terraform init'
         }
       }
     }
@@ -78,7 +87,7 @@ try {
         }
       }
     }
-  }}
+  }
   currentBuild.result = 'SUCCESS'
 }
 catch (org.jenkinsci.plugins.workflow.steps.FlowInterruptedException flowError) {
